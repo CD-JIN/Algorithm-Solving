@@ -12,7 +12,7 @@ public class Personal_information_collection_expiration_date {
             int period = Integer.parseInt(arr[1]);
             termsMap.put(kind, period);
         }
-        
+
         for(int i = 0; i < privacies.length; i++) {
             String[] arr = privacies[i].split(" ");
             String date = arr[0];
@@ -29,12 +29,13 @@ public class Personal_information_collection_expiration_date {
                 year += 1;
                 month = month%12;
             }
+            
             // 기한 오버 체크
             if(Integer.parseInt(todayArr[0]) < year) continue;
             else if(Integer.parseInt(todayArr[0]) == year) {
                 if(Integer.parseInt(todayArr[1]) < month) continue;
                 else if(Integer.parseInt(todayArr[1]) == month) {
-                    if(Integer.parseInt(todayArr[2]) <= day) continue;
+                    if(Integer.parseInt(todayArr[2]) < day) continue;
                     else {
                         al.add(i+1);
                     }
@@ -45,7 +46,7 @@ public class Personal_information_collection_expiration_date {
                 al.add(i+1);
             }
         }
-        
+
         return al.stream()
                 .mapToInt(Integer::intValue)
                 .toArray();
